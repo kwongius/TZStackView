@@ -89,19 +89,10 @@ public class TZStackView: UIView {
     
     override public var layoutMargins: UIEdgeInsets {
         get {
-            if #available(iOS 8, *) {
-                return super.layoutMargins
-            } else {
-                return _layoutMargins
-            }
+            return super.layoutMargins
         }
         set {
-            if #available(iOS 8, *) {
-                super.layoutMargins = newValue
-            } else {
-                _layoutMargins = newValue
-                setNeedsUpdateConstraints()
-            }
+            super.layoutMargins = newValue
         }
     }
     
@@ -174,12 +165,10 @@ public class TZStackView: UIView {
     }
     
     override public func prepareForInterfaceBuilder() {
-        if #available(iOS 8.0, *) {
-            super.prepareForInterfaceBuilder()
-                        
-            for aView in subviews {
-                addArrangedSubview(aView)
-            }
+        super.prepareForInterfaceBuilder()
+                    
+        for aView in subviews {
+            addArrangedSubview(aView)
         }
     }
 
@@ -443,17 +432,11 @@ public class TZStackView: UIView {
                 let leftConstraint: NSLayoutConstraint
                 let rightConstraint: NSLayoutConstraint
                 let topConstraint: NSLayoutConstraint
-                if #available(iOS 8.0, *) {
-                    bottomConstraint = constraint(item: self, attribute: .BottomMargin, toItem: layoutMarginsView, attribute: .Bottom)
-                    leftConstraint = constraint(item: self, attribute: .LeftMargin, toItem: layoutMarginsView, attribute: .Left)
-                    rightConstraint = constraint(item: self, attribute: .RightMargin, toItem: layoutMarginsView, attribute: .Right)
-                    topConstraint = constraint(item: self, attribute: .TopMargin, toItem: layoutMarginsView, attribute: .Top)
-                } else {
-                    bottomConstraint = constraint(item: self, attribute: .Bottom, toItem: layoutMarginsView, attribute: .Bottom, constant: _layoutMargins.bottom)
-                    leftConstraint = constraint(item: self, attribute: .Left, toItem: layoutMarginsView, attribute: .Left, constant: -_layoutMargins.left)
-                    rightConstraint = constraint(item: self, attribute: .Right, toItem: layoutMarginsView, attribute: .Right, constant: _layoutMargins.right)
-                    topConstraint = constraint(item: self, attribute: .Top, toItem: layoutMarginsView, attribute: .Top, constant: -_layoutMargins.top)
-                }
+
+                bottomConstraint = constraint(item: self, attribute: .BottomMargin, toItem: layoutMarginsView, attribute: .Bottom)
+                leftConstraint = constraint(item: self, attribute: .LeftMargin, toItem: layoutMarginsView, attribute: .Left)
+                rightConstraint = constraint(item: self, attribute: .RightMargin, toItem: layoutMarginsView, attribute: .Right)
+                topConstraint = constraint(item: self, attribute: .TopMargin, toItem: layoutMarginsView, attribute: .Top)
             
                 bottomConstraint.identifier = "TZView-bottomMargin-guide-constraint"
                 leftConstraint.identifier = "TZView-leftMargin-guide-constraint"
@@ -782,9 +765,7 @@ public class TZStackView: UIView {
             case .Trailing:
                 constraints += equalAttributes(views: views, attribute: .Bottom)
             case .FirstBaseline:
-                if #available(iOS 8.0, *) {
-                    constraints += equalAttributes(views: views, attribute: .FirstBaseline)
-                }
+                constraints += equalAttributes(views: views, attribute: .FirstBaseline)
             case .LastBaseline:
                 constraints += equalAttributes(views: views, attribute: .Baseline)
             }
